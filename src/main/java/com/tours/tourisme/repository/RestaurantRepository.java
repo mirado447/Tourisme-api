@@ -1,6 +1,9 @@
 package com.tours.tourisme.repository;
 
+import com.tours.tourisme.repository.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface RestaurantRepository extends JpaRepository<com.tours.tourisme.entity.Restaurant, Long> {
+@Repository
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 }
