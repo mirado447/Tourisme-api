@@ -1,4 +1,4 @@
-package com.tours.tourisme.entity;
+package com.tours.tourisme.repository.entity;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
