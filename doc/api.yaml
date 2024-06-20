@@ -714,6 +714,85 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
+  /locations:
+    get:
+      tags:
+        - Locations
+      summary: Get all Location
+      responses:
+        '201':
+          description: location created
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    post:
+      tags:
+        - Locations
+      summary: Create a new Location
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Location'
+      responses:
+        '201':
+          description: list locations 
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'      
+  /locations/{locationId}:
+    get:
+      tags:
+        - Locations
+      summary: Get a specific location by ID
+      parameters:
+        - name: locationId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: location details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Location'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'        
 components:
   schemas:
     Tour:
