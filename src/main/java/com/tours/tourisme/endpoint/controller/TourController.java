@@ -1,4 +1,4 @@
-package com.tours.tourisme.controller;
+package com.tours.tourisme.endpoint.controller;
 
 import com.tours.tourisme.model.BoundedPageSize;
 import com.tours.tourisme.model.PageFromOne;

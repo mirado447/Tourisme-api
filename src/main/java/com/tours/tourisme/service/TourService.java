@@ -20,4 +20,8 @@ public class TourService {
         Pageable pageable = PageRequest.of(page.getValue() - 1, pageSize.getValue());
         return repository.findAllTour(pageable);
     }
+
+    public Tour saveTour(Tour tour){
+        return repository.save(tour);
+    }
 }
