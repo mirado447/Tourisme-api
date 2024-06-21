@@ -20,6 +20,12 @@ import java.util.List;
 @AllArgsConstructor
 public class TourController {
     private final TourService tourService;
+
+    @GetMapping("/tours/{tid}")
+    public Tour getTourById(@PathVariable Long tid){
+        return tourService.getTourById(tid);
+    }
+
     @GetMapping("/tours")
     public List<Tour> getAllTour(@RequestParam int page,
                                  @RequestParam(value = "page_size") int pageSize){
@@ -40,6 +46,6 @@ public class TourController {
 
     @DeleteMapping("/tours/{tid}")
     public Tour deleteTourById(@PathVariable Long tid){
-        return tourService.deleteTourById(tid)
+        return tourService.deleteTourById(tid);
     }
 }
