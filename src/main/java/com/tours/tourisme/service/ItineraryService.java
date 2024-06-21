@@ -42,7 +42,6 @@ public class ItineraryService {
             Itinerary itineraryToUpdate = optionalItinerary.get();
             itineraryToUpdate.setStart_location(locationService.getLocationById(itinerary.getStart_location().getId()));
             itineraryToUpdate.setEnd_location(locationService.getLocationById(itinerary.getEnd_location().getId()));
-            itineraryToUpdate.setDuration(itinerary.getDuration());
             return repository.save(itineraryToUpdate);
         }else {
             return saveItinerary(itinerary);

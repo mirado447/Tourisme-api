@@ -32,4 +32,5 @@ public class Tour {
     private Itinerary itinerary;
 
     private BigDecimal cost;
+    private int duration;
 }
