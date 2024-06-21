@@ -29,6 +29,6 @@ public class LocationService {
     }
 
     public Location saveLocation(Location location){
-        return repository.save(location);
+        return repository.save(location); //update if the entity already exists
     }
 }
