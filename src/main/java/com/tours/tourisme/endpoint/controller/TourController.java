@@ -5,8 +5,11 @@ import com.tours.tourisme.model.PageFromOne;
 import com.tours.tourisme.repository.entity.Tour;
 import com.tours.tourisme.service.TourService;
 import lombok.AllArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -27,5 +30,16 @@ public class TourController {
     @PostMapping("/tours")
     public Tour saveTour(@RequestBody Tour tour){
         return tourService.saveTour(tour);
+    }
+
+    @PutMapping("/tours/{tid}")
+    public Tour crupdateTour(@PathVariable Long tid,
+                             @RequestBody Tour tour){
+        return tourService.crupdateTour(tid, tour);
+    }
+
+    @DeleteMapping("/tours/{tid}")
+    public Tour deleteTourById(@PathVariable Long tid){
+        return tourService.deleteTourById(tid)
     }
 }
