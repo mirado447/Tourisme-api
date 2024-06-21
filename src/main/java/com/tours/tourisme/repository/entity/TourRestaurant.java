@@ -11,25 +11,21 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
-
+@Data
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Data
-public class Tour {
+public class TourRestaurant {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "tour_id")
+    private Tour tour;
 
     @ManyToOne
-    @JoinColumn(name = "itinerary_id")
-    private Itinerary itinerary;
-
-    private BigDecimal cost;
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 }
