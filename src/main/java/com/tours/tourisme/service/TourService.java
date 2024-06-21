@@ -25,8 +25,8 @@ public class TourService {
         return repository.findAllTour(pageable);
     }
 
-    public Tour saveTour(Tour tour){
-        tour.setItinerary(itineraryService.getItineraryById(tour.getItinerary().getId()));
+    public Tour saveTour(Tour tour, Long iid){
+        tour.setItinerary(itineraryService.getItineraryById(iid));
         tour.setUser(userService.getUserById(tour.getUser().getId()));
         return repository.save(tour);
     }
@@ -37,16 +37,16 @@ public class TourService {
                 .orElseThrow(()-> new NotFoundException("Tour with id "+ tid +" not found"));
     }
 
-    public Tour crupdateTour(Long tid, Tour tour){
+    public Tour crupdateTour(Long tid, Tour tour, Long iid){
         Optional<Tour> optionalTour = repository.findById(tid);
         if(optionalTour.isPresent()){
             Tour tourFromDomain = optionalTour.get();
             tour.setId(tourFromDomain.getId());
-            tour.setItinerary(itineraryService.getItineraryById(tour.getItinerary().getId()));
+            tour.setItinerary(itineraryService.getItineraryById(iid));
             tour.setUser(userService.getUserById(tour.getUser().getId()));
             return repository.save(tour);
         }else {
-            return saveTour(tour);
+            return saveTour(tour,iid);
         }
     }
 

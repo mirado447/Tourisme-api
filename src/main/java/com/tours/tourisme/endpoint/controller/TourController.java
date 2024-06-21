@@ -34,14 +34,16 @@ public class TourController {
         return tourService.getAllTour(pageFromOne, boundedPageSize);
     }
     @PostMapping("/tours")
-    public Tour saveTour(@RequestBody Tour tour){
-        return tourService.saveTour(tour);
+    public Tour saveTour(@RequestBody Tour tour,
+                         @RequestParam Long iid){
+        return tourService.saveTour(tour, iid);
     }
 
     @PutMapping("/tours/{tid}")
     public Tour crupdateTour(@PathVariable Long tid,
-                             @RequestBody Tour tour){
-        return tourService.crupdateTour(tid, tour);
+                             @RequestBody Tour tour,
+                             @RequestParam Long iid){
+        return tourService.crupdateTour(tid, tour, iid);
     }
 
     @DeleteMapping("/tours/{tid}")
