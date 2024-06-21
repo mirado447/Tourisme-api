@@ -11,7 +11,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -34,17 +33,5 @@ public class ItineraryService {
         itinerary.setStart_location(locationService.getLocationById(itinerary.getStart_location().getId()));
         itinerary.setEnd_location(locationService.getLocationById(itinerary.getEnd_location().getId()));
         return repository.save(itinerary);
-    }
-
-    public Itinerary crupdateItinerary(Long iid, Itinerary itinerary){
-        Optional<Itinerary> optionalItinerary = repository.findById(iid);
-        if(optionalItinerary.isPresent()){
-            Itinerary itineraryToUpdate = optionalItinerary.get();
-            itineraryToUpdate.setStart_location(locationService.getLocationById(itinerary.getStart_location().getId()));
-            itineraryToUpdate.setEnd_location(locationService.getLocationById(itinerary.getEnd_location().getId()));
-            return repository.save(itineraryToUpdate);
-        }else {
-            return saveItinerary(itinerary);
-        }
     }
 }
