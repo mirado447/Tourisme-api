@@ -9,6 +9,7 @@ import com.tours.tourisme.repository.entity.Preference;
 import com.tours.tourisme.repository.entity.Tour;
 import com.tours.tourisme.repository.TourRepository;
 import com.tours.tourisme.repository.entity.User;
+import com.tours.tourisme.service.utils.CostService;
 import lombok.AllArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -27,6 +28,7 @@ public class TourService {
     private final ItineraryService itineraryService;
     private final UserService userService;
     private final PreferenceRepository preferenceRepository;
+    private final CostService costService;
 
     public List<Tour> getAllTour(PageFromOne page, BoundedPageSize pageSize){
         Pageable pageable = PageRequest.of(page.getValue() - 1, pageSize.getValue());
@@ -39,9 +41,11 @@ public class TourService {
     }
 
     public Tour getTourById(Long tid){
-        return repository
+        Tour tour = repository
                 .findById(tid)
                 .orElseThrow(()-> new NotFoundException("Tour with id "+ tid +" not found"));
+        tour.setCost(costService.totalCost(tid));
+        return tour;
     }
 
     public Tour crupdateTour(Long tid, Tour tour, Long iid){
@@ -77,7 +81,6 @@ public class TourService {
                     maxBudget, maxDuration, startLocation, endLocation);
             tours.addAll(toursForPreference);
         }
-
         return tours;
     }
 }
