@@ -26,10 +26,6 @@ public class Tour {
     private String name;
 
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
-
-    @ManyToOne
     @JoinColumn(name = "itinerary_id")
     private Itinerary itinerary;
 

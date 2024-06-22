@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
+import java.util.Set;
 
 @RestController
 @AllArgsConstructor
@@ -33,6 +34,12 @@ public class TourController {
         BoundedPageSize boundedPageSize = new BoundedPageSize(pageSize);
         return tourService.getAllTour(pageFromOne, boundedPageSize);
     }
+
+    @GetMapping("/users/{uid}/tours_preferences")
+    public Set<Tour> getToursByUserPreferences(@PathVariable Long uid) {
+        return tourService.getTourByUserPreferences(uid);
+    }
+
     @PostMapping("/tours")
     public Tour saveTour(@RequestBody Tour tour,
                          @RequestParam Long iid){

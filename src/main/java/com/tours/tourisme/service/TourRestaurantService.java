@@ -32,7 +32,7 @@ public class TourRestaurantService {
         TourRestaurant existingTourRestaurant = repository.findByTourIdAndRestaurantId(tid, rid);
 
         if(existingTourRestaurant != null){
-            throw new ResourceAlreadyExistsException("Restaurant with id :" + rid + " is already added to this tour");
+            throw new ResourceAlreadyExistsException("Restaurant with id " + rid + " is already added to this tour");
         }
 
         TourRestaurant tourRestaurant = TourRestaurant.builder()
