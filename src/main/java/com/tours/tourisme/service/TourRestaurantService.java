@@ -1,15 +1,11 @@
 package com.tours.tourisme.service;
 
-import com.tours.tourisme.model.BoundedPageSize;
-import com.tours.tourisme.model.PageFromOne;
 import com.tours.tourisme.model.exception.ResourceAlreadyExistsException;
 import com.tours.tourisme.repository.TourRestaurantRepository;
 import com.tours.tourisme.repository.entity.Restaurant;
 import com.tours.tourisme.repository.entity.Tour;
 import com.tours.tourisme.repository.entity.TourRestaurant;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +17,8 @@ public class TourRestaurantService {
     private final TourService tourService;
     private final RestaurantService restaurantService;
 
-    public List<Restaurant> getAllRestaurant(PageFromOne page, BoundedPageSize pageSize, Long tid){
-        Pageable pageable = PageRequest.of(page.getValue() - 1, pageSize.getValue());
-        return repository.findAllRestaurantByTourId(pageable, tid);
+    public List<Restaurant> getAllRestaurant(Long tid){
+        return repository.findAllRestaurantByTourId(tid);
     }
 
     public TourRestaurant saveTourRestaurant(Long tid , Long rid){  //tid : tour id and rid : restaurant id

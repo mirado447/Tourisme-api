@@ -42,3 +42,4 @@ public class SecurityConf {
         return new InMemoryUserDetailsManager(user);
     }
 }
+//TODO: reconfigure the security configuration

@@ -1,15 +1,11 @@
 package com.tours.tourisme.service;
 
-import com.tours.tourisme.model.BoundedPageSize;
-import com.tours.tourisme.model.PageFromOne;
 import com.tours.tourisme.model.exception.ResourceAlreadyExistsException;
 import com.tours.tourisme.repository.TourInterestPointRepository;
 import com.tours.tourisme.repository.entity.InterestPoint;
 import com.tours.tourisme.repository.entity.Tour;
 import com.tours.tourisme.repository.entity.TourInterestPoint;
 import lombok.AllArgsConstructor;
-import org.springframework.data.domain.PageRequest;
-import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -21,9 +17,8 @@ public class TourInterestPointService {
     private final TourService tourService;
     private final InterestPointService interestPointService;
 
-    public List<InterestPoint> getAllInterestPoint(PageFromOne page, BoundedPageSize pageSize, Long tid){
-        Pageable pageable = PageRequest.of(page.getValue() - 1, pageSize.getValue());
-        return repository.findAllInterestPointByTourId(pageable, tid);
+    public List<InterestPoint> getAllInterestPoint(Long tid){
+        return repository.findAllInterestPointByTourId(tid);
     }
 
     public TourInterestPoint saveTourInterestPoint(Long tid , Long ipid){  //tid : tour id and ipid : interest point id
