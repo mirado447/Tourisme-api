@@ -48,3 +48,5 @@ public class TourRestaurantService {
         return tourRestaurantToDelete;
     }
 }
+
+//TODO: add exception for not found entity if not present or already deleted

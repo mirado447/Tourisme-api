@@ -47,3 +47,5 @@ public class RestaurantService {
         }
     }
 }
+
+//TODO: one location is just for one restaurant or interest point

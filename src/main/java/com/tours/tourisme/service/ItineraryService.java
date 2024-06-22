@@ -35,3 +35,5 @@ public class ItineraryService {
         return repository.save(itinerary);
     }
 }
+
+//TODO: the start and end location must be different

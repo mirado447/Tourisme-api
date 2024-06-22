@@ -965,3 +965,5 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InternalServerException'
+
+##TODO: reorganize the params request, the body request
