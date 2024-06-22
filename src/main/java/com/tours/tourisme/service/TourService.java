@@ -32,7 +32,11 @@ public class TourService {
 
     public List<Tour> getAllTour(PageFromOne page, BoundedPageSize pageSize){
         Pageable pageable = PageRequest.of(page.getValue() - 1, pageSize.getValue());
-        return repository.findAllTour(pageable);
+        List<Tour> tours = repository.findAllTour(pageable);
+        for (Tour tour : tours){
+            tour.setCost(costService.totalCost(tour.getId()));
+        }
+        return tours;
     }
 
     public Tour saveTour(Tour tour, Long iid){
@@ -77,9 +81,12 @@ public class TourService {
             Location startLocation = preference.getStart_location();
             Location endLocation = preference.getEnd_location();
 
-            List<Tour> toursForPreference = repository.findToursByPreferences(
+            List<Tour> toursByPreference = repository.findToursByPreferences(
                     maxBudget, maxDuration, startLocation, endLocation);
-            tours.addAll(toursForPreference);
+            for (Tour tour : toursByPreference){
+                tour.setCost(costService.totalCost(tour.getId()));
+            }
+            tours.addAll(toursByPreference);
         }
         return tours;
     }
