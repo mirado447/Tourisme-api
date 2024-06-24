@@ -39,5 +39,4 @@ public class Preference {
 
     private BigDecimal max_budget;
     private int max_duration;
-    private int person;
 }
