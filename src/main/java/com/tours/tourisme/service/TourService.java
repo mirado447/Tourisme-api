@@ -39,8 +39,8 @@ public class TourService {
         return tours;
     }
 
-    public Tour saveTour(Tour tour, Long iid){
-        tour.setItinerary(itineraryService.getItineraryById(iid));
+    public Tour saveTour(Tour tour){
+        tour.setItinerary(itineraryService.getItineraryById(tour.getItinerary().getId()));
         return repository.save(tour);
     }
 
@@ -52,15 +52,15 @@ public class TourService {
         return tour;
     }
 
-    public Tour crupdateTour(Long tid, Tour tour, Long iid){
+    public Tour crupdateTour(Long tid, Tour tour){
         Optional<Tour> optionalTour = repository.findById(tid);
         if(optionalTour.isPresent()){
             Tour tourFromDomain = optionalTour.get();
             tour.setId(tourFromDomain.getId());
-            tour.setItinerary(itineraryService.getItineraryById(iid));
+            tour.setItinerary(itineraryService.getItineraryById(tour.getItinerary().getId()));
             return repository.save(tour);
         }else {
-            return saveTour(tour,iid);
+            return saveTour(tour);
         }
     }
 

@@ -41,16 +41,14 @@ public class TourController {
     }
 
     @PostMapping("/tours")
-    public Tour saveTour(@RequestBody Tour tour,
-                         @RequestParam Long iid){
-        return tourService.saveTour(tour, iid);
+    public Tour saveTour(@RequestBody Tour tour){
+        return tourService.saveTour(tour);
     }
 
     @PutMapping("/tours/{tid}")
     public Tour crupdateTour(@PathVariable Long tid,
-                             @RequestBody Tour tour,
-                             @RequestParam Long iid){
-        return tourService.crupdateTour(tid, tour, iid);
+                             @RequestBody Tour tour){
+        return tourService.crupdateTour(tid, tour);
     }
 
     @DeleteMapping("/tours/{tid}")
