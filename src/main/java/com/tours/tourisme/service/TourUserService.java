@@ -25,10 +25,10 @@ public class TourUserService {
         }
     }
 
-    public TourUser saveTourUser(Long tid, Long uid) {
+    public TourUser saveTourUser(Long uid, Long tid) {
         User user = userService.getUserById(uid);
         Tour tour = tourService.getTourById(tid);
-        TourUser existingTourUser = getTourUserByTourIdAndUserId(tid, uid);
+        TourUser existingTourUser = tourUserRepository.findByTourIdAndUserId(tid, uid);
 
         if(existingTourUser != null){
             throw new ResourceAlreadyExistsException("User with id " + uid + " is already added to this tour");
