@@ -4,7 +4,7 @@ info:
   description: API for managing tourist circuits
   version: 'latest'
 servers:
-  - url: http://localhost:8080/api
+  - url: http://localhost:8080/
 tags:
   - name: Tours
     description: Endpoints related to tours
@@ -52,7 +52,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tour'
+              $ref: '#/components/schemas/TourPost'
       responses:
         '201':
           description: Tour created
@@ -113,7 +113,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Tour'
+              $ref: '#/components/schemas/TourPost'
       responses:
         '200':
           description: Tour updated
@@ -144,6 +144,291 @@ paths:
       responses:
         '204':
           description: Tour deleted
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /users/{userId}/prefere_tours:
+    get:
+      tags:
+        - Tours
+      summary: get all tour by user preference
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tours by user preference
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Tour'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /tours/{tourId}/user/{userId}/tour_user:
+    post:
+      tags:
+        - Tour User
+      summary: associate an user to a specifique tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourUser'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - Tour User
+      summary:  delete an user in a specifique tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: User deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourUser'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /tours/{tourId}/interest_point:
+    get:
+      tags:
+        - Tour InterestPoint
+      summary: get all interest point in tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: All Tour InterestPoint by tourId
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/InterestPoint'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /tours/{tourId}/interest_point/{interestId}:
+    post:
+      tags:
+        - Tour InterestPoint
+      summary: add an interest point in a tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: interestId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tour InterestPoint details
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourInterestPoint'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - Tour InterestPoint
+      summary: delete an interest point in a tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: interestId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tour InterestPoint deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourInterestPoint'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /tours/{tourId}/restaurants:
+    get:
+      tags:
+        - Tour Restaurant
+      summary: get all restaurants in tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: All Restaurant by tourId
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/Restaurant'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /tours/{tourId}/restaurants/{restaurantId}:
+    post:
+      tags:
+        - Tour Restaurant
+      summary: add an restaurants in a tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: restaurantId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tour Restaurant added
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourRestaurant'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+    delete:
+      tags:
+        - Tour Restaurant
+      summary: delete an restaurant in a tour
+      parameters:
+        - name: tourId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: restaurantId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Tour Restaurant deleted
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/TourRestaurant'
         '400':
           $ref: '#/components/responses/400'
         '403':
@@ -322,7 +607,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Itinerary'
+              $ref: '#/components/schemas/ItineraryPost'
       responses:
         '201':
           description: Itinerary created
@@ -383,7 +668,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Itinerary'
+              $ref: '#/components/schemas/ItineraryPost'
       responses:
         '200':
           description: Itinerary updated
@@ -434,7 +719,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Restaurant'
+              $ref: '#/components/schemas/RestaurantPost'
       responses:
         '201':
           description: Restaurants created
@@ -495,7 +780,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Restaurant'
+              $ref: '#/components/schemas/RestaurantPost'
       responses:
         '200':
           description: Restaurant updated
@@ -546,7 +831,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InterestPoint'
+              $ref: '#/components/schemas/InterestPointPost'
       responses:
         '201':
           description: interest point created
@@ -607,7 +892,7 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/InterestPoint'
+              $ref: '#/components/schemas/InterestPointPost'
       responses:
         '200':
           description: interest point updated
@@ -625,48 +910,26 @@ paths:
           $ref: '#/components/responses/429'
         '500':
           $ref: '#/components/responses/500'
-  /preferences:
+  /users/{userId}/preferences/:
     post:
       tags:
         - Preferences
       summary: Create a new preference
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
       requestBody:
         required: true
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Preference'
+              $ref: '#/components/schemas/PreferencePost'
       responses:
         '201':
           description: preference created
-          content:
-            application/json:
-              schema:
-                $ref: '#/components/schemas/Preference'
-        '400':
-          $ref: '#/components/responses/400'
-        '403':
-          $ref: '#/components/responses/403'
-        '404':
-          $ref: '#/components/responses/404'
-        '429':
-          $ref: '#/components/responses/429'
-        '500':
-          $ref: '#/components/responses/500'
-  /preferences/{preferenceId}:
-    get:
-      tags:
-        - Preferences
-      summary: Get a specific preference by ID
-      parameters:
-        - name: preferenceId
-          in: path
-          required: true
-          schema:
-            type: integer
-      responses:
-        '200':
-          description: preference details
           content:
             application/json:
               schema:
@@ -686,7 +949,7 @@ paths:
         - Preferences
       summary: Update a specific preference by ID
       parameters:
-        - name: preferenceId
+        - name: userId
           in: path
           required: true
           schema:
@@ -696,10 +959,43 @@ paths:
         content:
           application/json:
             schema:
-              $ref: '#/components/schemas/Preference'
+              $ref: '#/components/schemas/PreferencePost'
       responses:
         '200':
           description: preference updated
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Preference'
+        '400':
+          $ref: '#/components/responses/400'
+        '403':
+          $ref: '#/components/responses/403'
+        '404':
+          $ref: '#/components/responses/404'
+        '429':
+          $ref: '#/components/responses/429'
+        '500':
+          $ref: '#/components/responses/500'
+  /users/{userId}/preferences/{preferenceId}:
+    get:
+      tags:
+        - Preferences
+      summary: Get a specific preference by ID
+      parameters:
+        - name: userId
+          in: path
+          required: true
+          schema:
+            type: integer
+        - name: preferenceId
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: preference details
           content:
             application/json:
               schema:
@@ -750,7 +1046,7 @@ paths:
               $ref: '#/components/schemas/Location'
       responses:
         '201':
-          description: list locations 
+          description: list locations
           content:
             application/json:
               schema:
@@ -764,7 +1060,7 @@ paths:
         '429':
           $ref: '#/components/responses/429'
         '500':
-          $ref: '#/components/responses/500'      
+          $ref: '#/components/responses/500'
   /locations/{locationId}:
     get:
       tags:
@@ -792,7 +1088,7 @@ paths:
         '429':
           $ref: '#/components/responses/429'
         '500':
-          $ref: '#/components/responses/500'        
+          $ref: '#/components/responses/500'
 components:
   schemas:
     Tour:
@@ -808,6 +1104,30 @@ components:
         cost:
           type: number
           format: float
+        duration:
+          type: integer
+          description: Duration in minutes
+    TourPost:
+      type: object
+      properties:
+        name:
+          type: string
+        itinerary:
+          type: object
+          properties:
+            id:
+              type: integer
+        duration:
+          type: integer
+          description: Duration in minutes
+    TourUser:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tour:
+          $ref: '#/components/schemas/Tour'
         user:
           $ref: '#/components/schemas/User'
     User:
@@ -828,13 +1148,21 @@ components:
         id:
           type: integer
           readOnly: true
+        description:
+          type: string
         startLocation:
           $ref: '#/components/schemas/Location'
         endLocation:
           $ref: '#/components/schemas/Location'
-        duration:
-          type: integer
-          description: Duration in minutes
+    ItineraryPost:
+      type: object
+      properties:
+        description:
+          type: string
+        startLocation:
+          $ref: '#/components/schemas/LocationPost'
+        endLocation:
+          $ref: '#/components/schemas/LocationPost'
     Preference:
       type: object
       properties:
@@ -853,6 +1181,19 @@ components:
           description: Maximum duration in minutes
         user:
           $ref: '#/components/schemas/User'
+    PreferencePost:
+      type: object
+      properties:
+        startLocation:
+          $ref: '#/components/schemas/LocationPost'
+        endLocation:
+          $ref: '#/components/schemas/LocationPost'
+        maxBudget:
+          type: number
+          format: float
+        maxDuration:
+          type: integer
+          description: Maximum duration in minutes
     Location:
       type: object
       properties:
@@ -867,6 +1208,11 @@ components:
         longitude:
           type: number
           format: float
+    LocationPost:
+      type: object
+      properties:
+        id:
+          type: integer
     Restaurant:
       type: object
       properties:
@@ -882,6 +1228,31 @@ components:
           format: float
         location:
           $ref: '#/components/schemas/Location'
+    TourRestaurant:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tour:
+          $ref: '#/components/schemas/Tour'
+        restaurant:
+          $ref: '#/components/schemas/Restaurant'
+    RestaurantPost:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        cost:
+          type: number
+          format: float
+        location:
+          $ref: '#/components/schemas/LocationPost'
     InterestPoint:
       type: object
       properties:
@@ -897,6 +1268,31 @@ components:
           format: float
         location:
           $ref: '#/components/schemas/Location'
+    TourInterestPoint:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        tour:
+          $ref: '#/components/schemas/Tour'
+        interestPoint:
+          $ref: '#/components/schemas/InterestPoint'
+    InterestPointPost:
+      type: object
+      properties:
+        id:
+          type: integer
+          readOnly: true
+        name:
+          type: string
+        description:
+          type: string
+        cost:
+          type: number
+          format: float
+        location:
+          $ref: '#/components/schemas/LocationPost'
     Exception:
       type: object
       properties:
@@ -965,5 +1361,3 @@ components:
         application/json:
           schema:
             $ref: '#/components/schemas/InternalServerException'
-
-##TODO: reorganize the params request, the body request
