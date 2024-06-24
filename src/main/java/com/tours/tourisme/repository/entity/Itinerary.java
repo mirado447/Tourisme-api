@@ -20,6 +20,7 @@ public class Itinerary {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+    private String description;
 
     @OneToOne
     @JoinColumn(name = "start_location_id")
