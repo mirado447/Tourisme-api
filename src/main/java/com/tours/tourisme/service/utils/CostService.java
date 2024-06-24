@@ -17,7 +17,7 @@ public class CostService {
     private final TourInterestPointRepository tourInterestPointRepository;
 
     public BigDecimal totalCost(Long tourId) {
-        BigDecimal basicCost = BigDecimal.valueOf(500);
+        BigDecimal basicCost = BigDecimal.valueOf(50000);
 
         List<Restaurant> restaurants = tourRestaurantRepository.findAllRestaurantByTourId(tourId);
         BigDecimal restaurantsCost = restaurants.stream()
