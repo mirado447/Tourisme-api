@@ -1,5 +1,6 @@
 package com.tours.tourisme.service;
 
+import com.tours.tourisme.model.exception.NotFoundException;
 import com.tours.tourisme.model.exception.ResourceAlreadyExistsException;
 import com.tours.tourisme.repository.TourInterestPointRepository;
 import com.tours.tourisme.repository.entity.InterestPoint;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,10 +26,10 @@ public class TourInterestPointService {
     public TourInterestPoint saveTourInterestPoint(Long tid , Long ipid){  //tid : tour id and ipid : interest point id
         Tour tour = tourService.getTourById(tid);
         InterestPoint interestPoint = interestPointService.getInterestPointById(ipid);
-        TourInterestPoint existingTourInterestPoint = repository.findByTourIdAndInterestPointId(tid, ipid);
+        Optional<TourInterestPoint> existingTourInterestPoint = repository.findByTourIdAndInterestPointId(tid, ipid);
 
-        if(existingTourInterestPoint != null){
-            throw new ResourceAlreadyExistsException("Interest point with id :" + ipid + " is already added to this tour");
+        if(existingTourInterestPoint.isPresent()){
+            throw new ResourceAlreadyExistsException("Interest point with id " + ipid + " is already added to this tour");
         }
 
         TourInterestPoint tourInterestPoint = TourInterestPoint.builder()
@@ -38,9 +40,12 @@ public class TourInterestPointService {
     }
 
     public TourInterestPoint deleteTourInterestPoint(Long tid , Long ipid){
-        TourInterestPoint tourInterestPointToDelete = repository.findByTourIdAndInterestPointId(tid, ipid);
-        repository.delete(tourInterestPointToDelete);
-        return tourInterestPointToDelete;
+        Optional<TourInterestPoint> tourInterestPointToDelete = repository.findByTourIdAndInterestPointId(tid, ipid);
+
+        if(tourInterestPointToDelete.isPresent()){
+            repository.delete(tourInterestPointToDelete.get());
+        }else throw new NotFoundException("Interest point with id "+ ipid + " not found");
+
+        return tourInterestPointToDelete.get();
     }
 }
-//TODO: add exception for not found entity if not present or already deleted

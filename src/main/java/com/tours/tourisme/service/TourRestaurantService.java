@@ -1,5 +1,6 @@
 package com.tours.tourisme.service;
 
+import com.tours.tourisme.model.exception.NotFoundException;
 import com.tours.tourisme.model.exception.ResourceAlreadyExistsException;
 import com.tours.tourisme.repository.TourRestaurantRepository;
 import com.tours.tourisme.repository.entity.Restaurant;
@@ -9,6 +10,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -24,9 +26,9 @@ public class TourRestaurantService {
     public TourRestaurant saveTourRestaurant(Long tid , Long rid){  //tid : tour id and rid : restaurant id
         Tour tour = tourService.getTourById(tid);
         Restaurant restaurant = restaurantService.getRestaurantById(rid);
-        TourRestaurant existingTourRestaurant = repository.findByTourIdAndRestaurantId(tid, rid);
+        Optional<TourRestaurant> existingTourRestaurant = repository.findByTourIdAndRestaurantId(tid, rid);
 
-        if(existingTourRestaurant != null){
+        if(existingTourRestaurant.isPresent()){
             throw new ResourceAlreadyExistsException("Restaurant with id " + rid + " is already added to this tour");
         }
 
@@ -38,10 +40,12 @@ public class TourRestaurantService {
     }
 
     public TourRestaurant deleteTourRestaurant(Long tid , Long rid){
-        TourRestaurant tourRestaurantToDelete = repository.findByTourIdAndRestaurantId(tid, rid);
-        repository.delete(tourRestaurantToDelete);
-        return tourRestaurantToDelete;
+        Optional<TourRestaurant> tourRestaurantToDelete = repository.findByTourIdAndRestaurantId(tid,rid);
+
+        if(tourRestaurantToDelete.isPresent()){
+            repository.delete(tourRestaurantToDelete.get());
+        }else throw new NotFoundException("Restaurant with id " + rid + " not found");
+
+        return tourRestaurantToDelete.get();
     }
 }
-
-//TODO: add exception for not found entity if not present or already deleted
